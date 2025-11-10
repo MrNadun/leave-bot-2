@@ -458,8 +458,7 @@ module.exports = async (m, conn, from, store) => {
       }, { quoted: m, ephemeralExpiration: 86400 });
       break;
     }
-    case 'gl': 
-      if (Selectedid == 'gl') 
+    case 'gl':  
     {
       let leaveDate = text
       
