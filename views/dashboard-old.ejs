@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-card h3 {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .controls {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .controls select, .controls button {
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        
+        .controls select {
+            background: white;
+            color: #667eea;
+        }
+        
+        .controls button {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .controls button:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+        
+        .leaves-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .leaves-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tbody tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .status-approved {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .status-pending {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .status-rejected {
+            background: #f44336;
+            color: white;
+        }
+        
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .delete-btn:hover {
+            background: #d32f2f;
+            transform: scale(1.05);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .controls select, .controls button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Leave Management Dashboard</h1>
+            <p>BuyMore Technical Team - Admin Panel</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Full Leaves</h3>
+                <div class="number"><%= stats.totalFull %></div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Half Leaves</h3>
+                <div class="number"><%= stats.totalHalf %></div>
+            </div>
+            <div class="stat-card">
+                <h3>Approved Full</h3>
+                <div class="number"><%= stats.approvedFull %></div>
+            </div>
+            <div class="stat-card">
+                <h3>Approved Half</h3>
+                <div class="number"><%= stats.approvedHalf %></div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Full</h3>
+                <div class="number"><%= stats.pendingFull %></div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Half</h3>
+                <div class="number"><%= stats.pendingHalf %></div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <select id="yearSelect" onchange="filterLeaves()">
+                <% for(let y = currentYear - 2; y <= currentYear + 1; y++) { %>
+                    <option value="<%= y %>" <%= y === year ? 'selected' : '' %>><%= y %></option>
+                <% } %>
+            </select>
+            
+            <select id="monthSelect" onchange="filterLeaves()">
+                <% const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; %>
+                <% for(let m = 1; m <= 12; m++) { %>
+                    <option value="<%= m %>" <%= m === month ? 'selected' : '' %>><%= months[m-1] %></option>
+                <% } %>
+            </select>
+            
+            <button onclick="downloadPDF()">📥 Download PDF Report</button>
+        </div>
+        
+        <div class="leaves-section">
+            <h2>📅 Full Day Leaves - <%= months[month-1] %> <%= year %></h2>
+            <div class="table-container">
+                <% if (fullLeaves.length === 0) { %>
+                    <div class="empty-state">No full day leaves recorded for this month</div>
+                <% } else { %>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Requested</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% fullLeaves.forEach((leave, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><%= leave.name || 'Unknown' %></td>
+                                    <td><%= leave.user ? leave.user.split('@')[0] : 'N/A' %></td>
+                                    <td><%= leave.date || 'N/A' %></td>
+                                    <td>
+                                        <span class="status-badge status-<%= leave.status || 'pending' %>">
+                                            <%= (leave.status || 'pending').toUpperCase() %>
+                                        </span>
+                                    </td>
+                                    <td><%= leave.requestedAt ? new Date(leave.requestedAt).toLocaleString() : 'N/A' %></td>
+                                    <td>
+                                        <button class="delete-btn" onclick="deleteLeave('full', '<%= leave.user %>', '<%= leave.date %>')">Delete</button>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="leaves-section">
+            <h2>🕐 Half Day Leaves - <%= months[month-1] %> <%= year %></h2>
+            <div class="table-container">
+                <% if (halfLeaves.length === 0) { %>
+                    <div class="empty-state">No half day leaves recorded for this month</div>
+                <% } else { %>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Requested</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% halfLeaves.forEach((leave, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><%= leave.name || 'Unknown' %></td>
+                                    <td><%= leave.user ? leave.user.split('@')[0] : 'N/A' %></td>
+                                    <td><%= leave.time || 'N/A' %></td>
+                                    <td>
+                                        <span class="status-badge status-<%= leave.status || 'pending' %>">
+                                            <%= (leave.status || 'pending').toUpperCase() %>
+                                        </span>
+                                    </td>
+                                    <td><%= leave.requestedAt ? new Date(leave.requestedAt).toLocaleString() : 'N/A' %></td>
+                                    <td>
+                                        <button class="delete-btn" onclick="deleteLeave('half', '<%= leave.user %>', '<%= leave.time %>')">Delete</button>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function filterLeaves() {
+            const year = document.getElementById('yearSelect').value;
+            const month = document.getElementById('monthSelect').value;
+            window.location.href = `/?year=${year}&month=${month}`;
+        }
+        
+        function downloadPDF() {
+            const year = document.getElementById('yearSelect').value;
+            const month = document.getElementById('monthSelect').value;
+            window.location.href = `/download-pdf?year=${year}&month=${month}`;
+        }
+        
+        async function deleteLeave(type, user, dateOrTime) {
+            if (!confirm('Are you sure you want to delete this leave record?')) {
+                return;
+            }
+            
+            try {
+                const body = type === 'full' 
+                    ? { user, date: dateOrTime }
+                    : { user, time: dateOrTime };
+                
+                const response = await fetch(`/api/leaves/delete/${type}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Leave deleted successfully!');
+                    location.reload();
+                } else {
+                    alert('Error deleting leave: ' + data.message);
+                }
+            } catch (error) {
+                alert('Error deleting leave: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

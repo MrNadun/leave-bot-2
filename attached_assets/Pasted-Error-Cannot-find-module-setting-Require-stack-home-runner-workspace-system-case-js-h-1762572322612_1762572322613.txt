@@ -1,0 +1,66 @@
+Error: Cannot find module './setting'
+Require stack:
+- /home/runner/workspace/system/case.js
+- /home/runner/workspace/nexa.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.<anonymous> (/home/runner/workspace/system/case.js:2:17)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/runner/workspace/system/case.js',
+    '/home/runner/workspace/nexa.js'
+  ]
+} unhandledRejection
+Error: Timed Out
+    at /home/runner/workspace/node_modules/@whiskeysockets/baileys/lib/Utils/generics.js:191:32 {
+  data: {
+    stack: 'Error\n' +
+      '    at promiseTimeout (/home/runner/workspace/node_modules/@whiskeysockets/baileys/lib/Utils/generics.js:186:19)\n' +
+      '    at waitForMessage (/home/runner/workspace/node_modules/@whiskeysockets/baileys/lib/Socket/socket.js:136:61)\n' +
+      '    at query (/home/runner/workspace/node_modules/@whiskeysockets/baileys/lib/Socket/socket.js:160:13)\n' +
+      '    at newsletterWMexQuery (/home/runner/workspace/node_modules/@whiskeysockets/baileys/lib/Socket/newsletter.js:36:68)\n' +
+      '    at Object.newsletterFollow (/home/runner/workspace/node_modules/@whiskeysockets/baileys/lib/Socket/newsletter.js:122:19)\n' +
+      '    at EventEmitter.<anonymous> (/home/runner/workspace/nexa.js:178:24)\n' +
+      '    at EventEmitter.emit (node:events:536:35)\n' +
+      '    at EventEmitter.<anonymous> (/home/runner/workspace/node_modules/@whiskeysockets/baileys/lib/Utils/event-buffer.js:40:16)\n' +
+      '    at EventEmitter.emit (node:events:524:28)\n' +
+      '    at Object.emit (/home/runner/workspace/node_modules/@whiskeysockets/baileys/lib/Utils/event-buffer.js:94:23)'
+  },
+  isBoom: true,
+  isServer: false,
+  output: {
+    statusCode: 408,
+    payload: {
+      statusCode: 408,
+      error: 'Request Time-out',
+      message: 'Timed Out'
+    },
+    headers: {}
+  }
+} unhandledRejection
+Error: Cannot find module './setting'
+Require stack:
+- /home/runner/workspace/system/case.js
+- /home/runner/workspace/nexa.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1212:15)
+    at Module._load (node:internal/modules/cjs/loader:1043:27)
+    at Module.require (node:internal/modules/cjs/loader:1298:19)
+    at require (node:internal/modules/helpers:182:18)
+    at Object.<anonymous> (/home/runner/workspace/system/case.js:2:17)
+    at Module._compile (node:internal/modules/cjs/loader:1529:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+    at Module.load (node:internal/modules/cjs/loader:1275:32)
+    at Module._load (node:internal/modules/cjs/loader:1096:12)
+    at Module.require (node:internal/modules/cjs/loader:1298:19) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    '/home/runner/workspace/system/case.js',
+    '/home/runner/workspace/nexa.js'
+  ]

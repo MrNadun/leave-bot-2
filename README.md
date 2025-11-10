@@ -1,1 +1,2 @@
-# leave-bot-2
+/*
+🌸 Nexa bot 🌸  

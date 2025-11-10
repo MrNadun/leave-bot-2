@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Leaves</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+        
+        .date-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .leaves-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .leaves-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .leave-card {
+            background: #f5f5f5;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .leave-card:hover {
+            transform: translateX(5px);
+        }
+        
+        .leave-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .leave-info {
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .leave-info strong {
+            color: #667eea;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.2em;
+        }
+        
+        .empty-state .emoji {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            background: #667eea;
+            padding: 12px 30px;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .back-link a:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 Today's Leaves</h1>
+            <p>People on leave today</p>
+            <div class="date-display"><%= currentDate %></div>
+        </div>
+        
+        <div class="leaves-section">
+            <h2>Full Day Leaves Today</h2>
+            <% if (todayFullLeaves.length === 0) { %>
+                <div class="empty-state">
+                    <div class="emoji">🎉</div>
+                    <p>No one is on full day leave today!</p>
+                </div>
+            <% } else { %>
+                <% todayFullLeaves.forEach(leave => { %>
+                    <div class="leave-card">
+                        <h3><%= leave.name || 'Unknown' %></h3>
+                        <div class="leave-info"><strong>Phone:</strong> <%= leave.user ? leave.user.split('@')[0] : 'N/A' %></div>
+                        <div class="leave-info"><strong>Date:</strong> <%= leave.date %></div>
+                        <% if (leave.approvedAt) { %>
+                            <div class="leave-info"><strong>Approved:</strong> <%= new Date(leave.approvedAt).toLocaleString() %></div>
+                        <% } %>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+        
+        <div class="leaves-section">
+            <h2>Half Day Leaves Today</h2>
+            <% if (todayHalfLeaves.length === 0) { %>
+                <div class="empty-state">
+                    <div class="emoji">🎉</div>
+                    <p>No one is on half day leave today!</p>
+                </div>
+            <% } else { %>
+                <% todayHalfLeaves.forEach(leave => { %>
+                    <div class="leave-card">
+                        <h3><%= leave.name || 'Unknown' %></h3>
+                        <div class="leave-info"><strong>Phone:</strong> <%= leave.user ? leave.user.split('@')[0] : 'N/A' %></div>
+                        <div class="leave-info"><strong>Time:</strong> <%= leave.time %></div>
+                        <% if (leave.approvedAt) { %>
+                            <div class="leave-info"><strong>Approved:</strong> <%= new Date(leave.approvedAt).toLocaleString() %></div>
+                        <% } %>
+                    </div>
+                <% }); %>
+            <% } %>
+        </div>
+        
+        <div class="back-link">
+            <a href="/admin">🔐 Admin Login</a>
+        </div>
+    </div>
+</body>
+</html>

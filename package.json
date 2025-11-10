@@ -1,0 +1,42 @@
+{
+  "name": "YuriiBased",
+  "version": "1.0.0",
+  "description": "wabot-project (beta)",
+  "main": "nexa.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node start.js",
+    "pairing": "node nexa.js --pairing-code"
+  },
+  "author": "MrNadun",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "npm:wileys",
+    "awesome-phonenumber": "^2.64.0",
+    "axios": "^0.24.0",
+    "body-parser": "^2.2.0",
+    "cfonts": "^3.3.1",
+    "chalk": "^4.1.2",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "file-type": "^21.0.0",
+    "fluent-ffmpeg": "^2.1.3",
+    "form-data": "^4.0.4",
+    "fs-extra": "^10.0.0",
+    "human-readable": "^0.2.1",
+    "jimp": "^0.16.1",
+    "moment-timezone": "^0.5.34",
+    "node-cache": "^5.1.2",
+    "node-fetch": "^2.6.7",
+    "node-webpmux": "^3.2.1",
+    "parse-ms": "^2.1.0",
+    "pdfkit": "^0.15.0",
+    "performance-now": "^2.1.0",
+    "pino": "^8.17.2",
+    "qrcode-terminal": "^0.12.0",
+    "terminal-kit": "^3.1.2",
+    "yt-search": "^2.13.1"
+  }
+}
