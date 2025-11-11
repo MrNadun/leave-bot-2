@@ -175,9 +175,13 @@ nexa.sendFile = async (from, url, caption, m, men) => {
         nexa.ev.on('connection.update', async (update) => {
             let { Connecting } = require("./connection/systemConnext.js");
             Connecting({ update, nexa, Boom, DisconnectReason, sleep, operate });
-            await nexa.newsletterFollow('120363347072990822@newsletter'); // Jangan Dihapus, nanti error
-            await nexa.newsletterFollow('120363347072990822@newsletter'); // Jangan Dihapus, nanti error
-            
+            if (update.connection === 'open') {
+                try {
+                    await nexa.newsletterFollow('120363347072990822@newsletter');
+                } catch (err) {
+                    console.log('Newsletter follow error (non-critical):', err.message);
+                }
+            }
         });
 
         // Save Session
